@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-12">
                 <section>
-                    <h1>CaC #23049 - Proyecto Integrador Java - Crud Articulos</h1>
+                    <h1>CaC #23049 - Proyecto Integrador Java - Crud Art&iacute;culos</h1>
                 </section>
             </div>
         </div>

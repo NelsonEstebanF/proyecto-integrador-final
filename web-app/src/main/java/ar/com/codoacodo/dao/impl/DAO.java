@@ -15,4 +15,6 @@ public interface DAO {
     public void create(Articulo articulo) throws Exception;
 
     public ArrayList<Articulo> findAllByTitle(String clave) throws Exception;
+
+    public boolean existeCodigo(String codigo) throws Exception;
 }

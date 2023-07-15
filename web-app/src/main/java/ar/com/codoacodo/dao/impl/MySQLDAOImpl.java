@@ -113,4 +113,17 @@ public class MySQLDAOImpl implements DAO {
         pst.execute();
     }
 
+    public boolean existeCodigo(String codigo) throws Exception {
+        String sql = "SELECT EXISTS(SELECT 1 FROM " + TABLE_NAME + " WHERE codigo = ?)";
+        Connection con = AdministradorDeConexiones.getConnection();
+        PreparedStatement pst = con.prepareStatement(sql);
+        pst.setString(1, codigo);
+        ResultSet res = pst.executeQuery();
+        if (res.next()) {
+            int exists = res.getInt(1);
+            return exists == 1;
+        }
+        return false;
+    }
+
 }

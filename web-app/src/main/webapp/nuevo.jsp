@@ -12,50 +12,58 @@
         <div class="row">
             <div class="col-12">
                 <section>
-                    <h1>Alta Art&iacute;culo</h1>
-                    <form class="needs-validation" method="post" action="<%=request.getContextPath()%>/Alta-Articulo"
-                        novalidate>
-                        <div class="mb-3">
-                            <label for="nombre" class="form-label">Nombre</label>
-                            <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Nombre"
-                                maxlength="50" required>
-                            <div class="invalid-feedback">
-                                Por favor, ingresa un nombre.
+                    <% String error=(String)request.getAttribute("error");%>
+                        <% if(error!=null) { %>
+                            <div class="alert alert-danger" role="alert">
+                                <%=error%>
                             </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="precio" class="form-label">Precio
-                            </label>
-                            <input name="precio" type="number" class="form-control" id="precio" required>
-                            <div class="invalid-feedback">
-                                Por favor, ingresa un precio.
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="imagen" class="form-label">Im&aacute;gen
-                            </label>
-                            <input name="imagen" type="file" class="form-control" id="imagen">
-                        </div>
-                        <div class="mb-3">
-                            <label for="codigo" class="form-label">C&oacute;digo
-                            </label>
-                            <input name="codigo" type="text" class="form-control" id="codigo" maxlength="7" required>
-                            <div class="invalid-feedback">
-                                Por favor, ingresa un código.
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="autor" class="form-label">Autor
-                            </label>
-                            <input name="autor" type="text" class="form-control" id="autor" maxlength="50" required>
-                            <div class="invalid-feedback">
-                                Por favor, ingresa un autor.
-                            </div>
-                        </div>
-                        <button class="btn btn-primary">
-                            Dar de alta
-                        </button>
-                    </form>
+                            <% } %>
+                                <h1>Alta Art&iacute;culo</h1>
+                                <form class="needs-validation" method="post"
+                                    action="<%=request.getContextPath()%>/Alta-Articulo" novalidate>
+                                    <div class="mb-3">
+                                        <label for="nombre" class="form-label">Nombre</label>
+                                        <input name="nombre" type="text" class="form-control" id="nombre" maxlength="50"
+                                        value="<%= request.getAttribute("nombre") %>" required>
+                                        <div class="invalid-feedback">
+                                            Por favor, ingresa un nombre.
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="precio" class="form-label">Precio
+                                        </label>
+                                        <input name="precio" type="number" class="form-control" id="precio"  step="0.01" value="<%= request.getAttribute("precio") %>" required>
+                                        <div class="invalid-feedback">
+                                            Por favor, ingresa un precio valido.
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="imagen" class="form-label">Im&aacute;gen
+                                        </label>
+                                        <input name="imagen" type="file" class="form-control" id="imagen">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="codigo" class="form-label">C&oacute;digo
+                                        </label>
+                                        <input name="codigo" type="text" class="form-control" id="codigo" maxlength="7"
+                                        value="<%= request.getAttribute("codigo") %>" required>
+                                        <div class="invalid-feedback">
+                                            Por favor, ingresa un código.
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="autor" class="form-label">Autor
+                                        </label>
+                                        <input name="autor" type="text" class="form-control" id="autor" maxlength="50"
+                                        value="<%= request.getAttribute("autor")%>" required>
+                                        <div class="invalid-feedback">
+                                            Por favor, ingresa un autor.
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary">
+                                        Dar de alta
+                                    </button>
+                                </form>
                 </section>
             </div>
         </div>
