@@ -15,7 +15,8 @@ public class AltaArticuloController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        setAttributes(req, "", "", "", "");
+        Articulo nuevo = new Articulo("", "", "", null, false, "");
+        req.setAttribute("articulo", nuevo);
         getServletContext().getRequestDispatcher("/nuevo.jsp").forward(req, resp);
     }
 
@@ -28,13 +29,13 @@ public class AltaArticuloController extends HttpServlet {
         String codigo = req.getParameter("codigo");
         boolean novedad = false;
 
-        Articulo nuevo = new Articulo(titulo, (titulo + ".jpg"), autor, precio, novedad, codigo);
+        Articulo nuevo = new Articulo(titulo, titulo + ".jpg", autor, precio, novedad, codigo);
         DAO dao = new MySQLDAOImpl();
 
         try {
             if (dao.existeCodigo(codigo)) {
                 // El código ya existe, muestra un mensaje de error
-                setAttributes(req, titulo, precioString, autor, codigo);
+                req.setAttribute("articulo", nuevo);
                 req.setAttribute("error", "El código ya existe en la base de datos");
             } else {
                 // El código no existe, procede a crear el artículo
@@ -45,19 +46,11 @@ public class AltaArticuloController extends HttpServlet {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            setAttributes(req, titulo, precioString, autor, codigo);
+            req.setAttribute("articulo", nuevo);
             req.setAttribute("error", "Fallo la conexión con la base de datos");
         }
 
         getServletContext().getRequestDispatcher("/nuevo.jsp").forward(req, resp);
     }
-
-    private void setAttributes(HttpServletRequest req, String titulo, String precioString, String autor,
-            String codigo) {
-        req.setAttribute("nombre", titulo);
-        req.setAttribute("precio", precioString);
-        req.setAttribute("autor", autor);
-        req.setAttribute("codigo", codigo);
-    }
-
+   
 }

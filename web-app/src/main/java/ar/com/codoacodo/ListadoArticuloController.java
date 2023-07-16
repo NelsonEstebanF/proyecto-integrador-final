@@ -37,5 +37,5 @@ public class ListadoArticuloController extends HttpServlet {
             getServletContext().getRequestDispatcher("/listado.jsp").forward(req, resp);
         }
 
-    }
+    } 
 }

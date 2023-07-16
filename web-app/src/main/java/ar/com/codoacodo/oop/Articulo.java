@@ -1,6 +1,7 @@
 package ar.com.codoacodo.oop;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 //todas las clases son hijas de Object
 //nombre
@@ -13,8 +14,8 @@ public class Articulo {
     protected String imagen;
     protected String autor;
     protected boolean novedad;
-    protected Date fechaCreacion;
     protected String codigo;
+    protected String fechaCreacion;
 
     // constuctor/es
     // si no escribo el constructor, JVM me da uno por defecto
@@ -39,7 +40,20 @@ public class Articulo {
             Date fechaCreacion) {
         extracted(titulo, imagen, autor, precio, novedad, codigo);
         this.id = id;
-        this.fechaCreacion = fechaCreacion;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        this.fechaCreacion = sdf.format(fechaCreacion);
+    }
+
+    public Articulo(
+            Long id,
+            String titulo,
+            String imagen,
+            String autor,
+            Double precio,
+            boolean novedad,
+            String codigo) {
+        extracted(titulo, imagen, autor, precio, novedad, codigo);
+        this.id = id;
     }
 
     private void extracted(String titulo, String imagen, String autor, Double precio, boolean novedad, String codigo) {
@@ -100,16 +114,12 @@ public class Articulo {
         this.novedad = novedad;
     }
 
-    public Date getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
     public String getCodigo() {
         return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     @Override
@@ -118,8 +128,11 @@ public class Articulo {
                 + autor + ", novedad=" + novedad + ", fechaCreacion=" + fechaCreacion + ", codigo=" + codigo + "]";
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public String getFechaCreacion() {
+        return fechaCreacion;
     }
 
+    public void setFechaCreacion(String fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
 }

@@ -66,7 +66,8 @@
                                             </td>
                                             <td>
                                               <a href="<%=request.getContextPath()%>/Delete-Articulo?id=<%=articulo.getId()%>"
-                                                class="btn btn-danger" tabindex="-1" role="button" aria-disabled="true">
+                                                class="btn btn-danger" tabindex="-1" role="button" aria-disabled="true"
+                                                onclick="return confirm('\u00BFEst\u00E1s seguro de que deseas eliminar este art\u00EDculo?')">
                                                 Eliminar
                                               </a>
                                               <a href="<%=request.getContextPath()%>/Editar-Articulo?id=<%=articulo.getId()%>"

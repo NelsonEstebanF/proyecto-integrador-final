@@ -20,6 +20,8 @@ public class DeleteController extends HttpServlet {
             String location = req.getContextPath() + "/Lista-Articulos";
             resp.sendRedirect(location);
         } catch (Exception e) {
+            req.setAttribute("error", "Fallo la conexión con la base de datos");
+            getServletContext().getRequestDispatcher("/listado.jsp").forward(req, resp);
             e.printStackTrace();
         }
     }

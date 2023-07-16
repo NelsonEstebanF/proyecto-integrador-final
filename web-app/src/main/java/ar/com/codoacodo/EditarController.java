@@ -15,13 +15,14 @@ public class EditarController extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DAO dao = new MySQLDAOImpl();
+        long id = Long.parseLong(req.getParameter("id"));
         try {
-            long id = Long.parseLong(req.getParameter("id"));
             Articulo articulo = dao.getById(id);
             req.setAttribute("articulo", articulo);
         } catch (Exception e) {
-            req.setAttribute("error", "No se ha editado el articulo");
-            req.getRequestDispatcher("/Lista-Articulos").forward(req, resp);
+            req.setAttribute("error", "No se ha encontrado el artículo");
+            Articulo nuevo = new Articulo(id, "", "", "", null, false, "", null);
+            req.setAttribute("articulo", nuevo);
         }
         getServletContext().getRequestDispatcher("/editar.jsp").forward(req, resp);
     }
@@ -31,11 +32,10 @@ public class EditarController extends HttpServlet {
         long id = Long.parseLong(req.getParameter("id"));
         String titulo = req.getParameter("nombre");
         String precioString = req.getParameter("precio");
-        Double  precio = Double.parseDouble(precioString);
+        Double precio = Double.parseDouble(precioString);
         String autor = req.getParameter("autor");
         String codigo = req.getParameter("codigo");
-
-        Articulo nuevo = new Articulo(id, titulo, (titulo + ".jpg"), autor, precio, false, codigo, null);
+        Articulo nuevo = new Articulo(id, titulo, (titulo + ".jpg"), autor, precio, false, codigo);
         DAO dao = new MySQLDAOImpl();
         try {
             dao.update(nuevo);
@@ -43,7 +43,8 @@ public class EditarController extends HttpServlet {
             req.getRequestDispatcher("/Lista-Articulos").forward(req, resp);
         } catch (Exception e) {
             req.setAttribute("error", "No se ha editado el articulo");
-            getServletContext().getRequestDispatcher("/editar.jsp").forward(req, resp);
+            req.setAttribute("articulo", nuevo);
+            req.getRequestDispatcher("/editar.jsp").forward(req, resp);
             e.printStackTrace();
         }
     }
